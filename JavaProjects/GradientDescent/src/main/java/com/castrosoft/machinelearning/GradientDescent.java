@@ -51,6 +51,7 @@ public class GradientDescent {
             double currentError = computeError(theta1, theta2, trainingSet);
 
             if (currentError >= lastError) {
+                //TODO: use log4j
                 System.out.println("Alright, we stop here.");
                 return lastThetas;
             }
@@ -66,6 +67,7 @@ public class GradientDescent {
         double theta1 = currentStep[0];
         double theta2 = currentStep[1];
 
+        //TODO: use log4j
         System.out.println("Theta 1: " + theta1 + " - Theta 2: " + theta2 + " - Error: " + currentError);
     }
 }
