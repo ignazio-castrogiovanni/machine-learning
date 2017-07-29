@@ -1,10 +1,10 @@
-package com.castrosoft;
+package com.castrosoft.machinelearning;
 
 public class GradientDescent {
     public static final int X = 0;
     public static final int Y = 1;
 
-    private static double[] twoVariableSingleStep(double currentTheta1,
+    private double[] twoVariableSingleStep(double currentTheta1,
                                                   double currentTheta2,
                                                   double[][] trainingSet,
                                                   double alpha) {
@@ -23,7 +23,7 @@ public class GradientDescent {
         return new double[] {newTheta1, newTheta2};
     }
 
-    private static double computeError(double theta1, double theta2, double[][] trainingSet) {
+    private double computeError(double theta1, double theta2, double[][] trainingSet) {
         double totalError = 0.0;
         int trainingSetLength = trainingSet[0].length;
 
@@ -34,7 +34,7 @@ public class GradientDescent {
         return totalError / trainingSetLength;
     }
 
-    public static double[] findOptimalThetas(double[][] trainingSet,
+    public double[] findOptimalThetas(double[][] trainingSet,
                                       double theta1,
                                       double theta2,
                                       double alpha,
@@ -43,12 +43,12 @@ public class GradientDescent {
         double[] lastThetas = new double[]{theta1, theta2};
 
         for (int i = 0; i < maximumNumberOfIteration; i++) {
-            double[] currentStep = GradientDescent.twoVariableSingleStep(theta1, theta2, trainingSet, alpha);
+            double[] currentStep = twoVariableSingleStep(theta1, theta2, trainingSet, alpha);
             theta1 = currentStep[0];
             theta2 = currentStep[1];
             lastThetas = new double[]{theta1, theta2};
 
-            double currentError = GradientDescent.computeError(theta1, theta2, trainingSet);
+            double currentError = computeError(theta1, theta2, trainingSet);
 
             if (currentError >= lastError) {
                 System.out.println("Alright, we stop here.");
@@ -62,7 +62,7 @@ public class GradientDescent {
         return lastThetas;
     }
 
-    private static void printThetaValues(double[] currentStep, double currentError) {
+    private void printThetaValues(double[] currentStep, double currentError) {
         double theta1 = currentStep[0];
         double theta2 = currentStep[1];
 

@@ -1,0 +1,12 @@
+{
+  "trainingSet" : [
+    ["3", "2"],
+    ["1", "2"],
+    ["0", "1"],
+    ["4", "3"]
+  ],
+  "startingTheta1" : "0",
+  "startingTheta2" : "0",
+  "alpha" : "0.001",
+  "maximumNumberOfIteration" : "20000"
+}

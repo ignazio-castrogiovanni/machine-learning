@@ -1,6 +1,6 @@
-package com.castrosoft.Controller;
+package com.castrosoft.machinelearning.controller;
 
-import com.castrosoft.Service.HelloService;
+import com.castrosoft.machinelearning.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;

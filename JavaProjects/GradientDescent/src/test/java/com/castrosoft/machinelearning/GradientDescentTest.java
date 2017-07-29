@@ -1,11 +1,13 @@
-package com.castrosoft;
+package com.castrosoft.machinelearning;
 
 import org.junit.Test;
 
-import static com.castrosoft.GradientDescent.X;
-import static com.castrosoft.GradientDescent.Y;
+import static com.castrosoft.machinelearning.GradientDescent.X;
+import static com.castrosoft.machinelearning.GradientDescent.Y;
 
 public class GradientDescentTest {
+    private final GradientDescent gradientDescent = new GradientDescent();
+
     @Test
     public void twoVariablesDescentTestOne() {
         double[][] trainingSet = new double[2][4];
@@ -24,7 +26,7 @@ public class GradientDescentTest {
         double alpha = 0.001;
 
         int maximumNumberOfIterations = 20000;
-        GradientDescent.findOptimalThetas(trainingSet, theta1, theta2, alpha, maximumNumberOfIterations);
+        gradientDescent.findOptimalThetas(trainingSet, theta1, theta2, alpha, maximumNumberOfIterations);
     }
 
     @Test
@@ -53,6 +55,6 @@ public class GradientDescentTest {
         double alpha = 0.001;
 
         int maximumNumberOfIterations = 200000;
-        GradientDescent.findOptimalThetas(trainingSet, theta1, theta2, alpha, maximumNumberOfIterations);
+        gradientDescent.findOptimalThetas(trainingSet, theta1, theta2, alpha, maximumNumberOfIterations);
     }
 }

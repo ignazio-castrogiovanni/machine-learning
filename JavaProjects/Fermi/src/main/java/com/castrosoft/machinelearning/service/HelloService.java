@@ -1,4 +1,4 @@
-package com.castrosoft.Service;
+package com.castrosoft.machinelearning.service;
 
 import org.springframework.stereotype.Component;
 
