@@ -10,45 +10,45 @@ public class GradientDescent {
                                                   double alpha) {
 
         int trainingSetLength = trainingSet[0].length;
-        double tempTetha1 = 0.0;
-        double tempTetha2 = 0.0;
+        double tempTheta1 = 0.0;
+        double tempTheta2 = 0.0;
         for (int i = 0; i < trainingSetLength; i++) {
-            tempTetha1 += -(2.0/trainingSetLength) * trainingSet[X][i] * (trainingSet[Y][i] - (currentTheta1 * trainingSet[X][i] + currentTheta2));
-            tempTetha2 += -(2.0/trainingSetLength) * (trainingSet[Y][i] - (currentTheta1 * trainingSet[X][i] + currentTheta2));
+            tempTheta1 += -(2.0/trainingSetLength) * trainingSet[X][i] * (trainingSet[Y][i] - (currentTheta1 * trainingSet[X][i] + currentTheta2));
+            tempTheta2 += -(2.0/trainingSetLength) * (trainingSet[Y][i] - (currentTheta1 * trainingSet[X][i] + currentTheta2));
         }
 
-        double newTetha1 = currentTheta1 - (alpha * tempTetha1);
-        double newTetha2 = currentTheta2 - (alpha * tempTetha2);
+        double newTheta1 = currentTheta1 - (alpha * tempTheta1);
+        double newTheta2 = currentTheta2 - (alpha * tempTheta2);
 
-        return new double[] {newTetha1, newTetha2};
+        return new double[] {newTheta1, newTheta2};
     }
 
-    private static double computeError(double tetha1, double tetha2, double[][] trainingSet) {
+    private static double computeError(double theta1, double theta2, double[][] trainingSet) {
         double totalError = 0.0;
         int trainingSetLength = trainingSet[0].length;
 
         for (int i = 0; i < trainingSetLength; i++) {
-            totalError += Math.pow((trainingSet[Y][i] - ((tetha1 * trainingSet[X][i])+ tetha2)), 2);
+            totalError += Math.pow((trainingSet[Y][i] - ((theta1 * trainingSet[X][i])+ theta2)), 2);
         }
 
         return totalError / trainingSetLength;
     }
 
-    public static double[] findOptimalTethas(double[][] trainingSet,
-                                      double tetha1,
-                                      double tetha2,
+    public static double[] findOptimalThetas(double[][] trainingSet,
+                                      double theta1,
+                                      double theta2,
                                       double alpha,
                                       int maximumNumberOfIteration) {
         double lastError = Double.MAX_VALUE;
-        double[] lastThetas = new double[]{tetha1, tetha2};
+        double[] lastThetas = new double[]{theta1, theta2};
 
         for (int i = 0; i < maximumNumberOfIteration; i++) {
-            double[] currentStep = GradientDescent.twoVariableSingleStep(tetha1, tetha2, trainingSet, alpha);
-            tetha1 = currentStep[0];
-            tetha2 = currentStep[1];
-            lastThetas = new double[]{tetha1, tetha2};
+            double[] currentStep = GradientDescent.twoVariableSingleStep(theta1, theta2, trainingSet, alpha);
+            theta1 = currentStep[0];
+            theta2 = currentStep[1];
+            lastThetas = new double[]{theta1, theta2};
 
-            double currentError = GradientDescent.computeError(tetha1, tetha2, trainingSet);
+            double currentError = GradientDescent.computeError(theta1, theta2, trainingSet);
 
             if (currentError >= lastError) {
                 System.out.println("Alright, we stop here.");
@@ -56,16 +56,16 @@ public class GradientDescent {
             }
 
             lastError = currentError;
-            printTethaValues(currentStep, currentError);
+            printThetaValues(currentStep, currentError);
         }
 
         return lastThetas;
     }
 
-    private static void printTethaValues(double[] currentStep, double currentError) {
-        double tetha1 = currentStep[0];
-        double tetha2 = currentStep[1];
+    private static void printThetaValues(double[] currentStep, double currentError) {
+        double theta1 = currentStep[0];
+        double theta2 = currentStep[1];
 
-        System.out.println("Tetha 1: " + tetha1 + " - Tetha 2: " + tetha2 + " - Error: " + currentError);
+        System.out.println("Theta 1: " + theta1 + " - Theta 2: " + theta2 + " - Error: " + currentError);
     }
 }

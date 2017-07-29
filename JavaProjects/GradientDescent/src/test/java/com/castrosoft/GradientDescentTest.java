@@ -19,12 +19,12 @@ public class GradientDescentTest {
         trainingSet[Y][2] = 1;
         trainingSet[Y][3] = 3;
 
-        double tetha1 = 0;
-        double tetha2 = 0;
+        double theta1 = 0;
+        double theta2 = 0;
         double alpha = 0.001;
 
         int maximumNumberOfIterations = 20000;
-        GradientDescent.findOptimalTethas(trainingSet, tetha1, tetha2, alpha, maximumNumberOfIterations);
+        GradientDescent.findOptimalThetas(trainingSet, theta1, theta2, alpha, maximumNumberOfIterations);
     }
 
     @Test
@@ -48,11 +48,11 @@ public class GradientDescentTest {
         trainingSet[Y][6] = 5;
         trainingSet[Y][7] = 3;
 
-        double tetha1 = 10;
-        double tetha2 = 10;
+        double theta1 = 10;
+        double theta2 = 10;
         double alpha = 0.001;
 
         int maximumNumberOfIterations = 200000;
-        GradientDescent.findOptimalTethas(trainingSet, tetha1, tetha2, alpha, maximumNumberOfIterations);
+        GradientDescent.findOptimalThetas(trainingSet, theta1, theta2, alpha, maximumNumberOfIterations);
     }
 }
