@@ -1,0 +1,107 @@
+swagger: "2.0"
+
+info:
+  version: "0.0.1"
+  title: Fermi Machine Learning API
+  description: This specification is for the Fermi Machine Learning API |
+               The Fermi Machine Learning API is a set of tools based on|
+               Andrew Ng's Coursera course.
+  contact:
+    name: Ignazio Castrogiovanni
+    url: www.ignazio-castrogiovanni.com/fermi
+    email: email@ignazio-castrogiovanni.com
+
+  license:
+    name: GNU
+
+host: localhost:3000
+basePath: /v1/
+schemes:
+  - http
+  - https
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+tags:
+  - name: model
+    description: Refer to the model used to compute the predictions.
+
+  - name: organisation
+    description: Refer to the insurance companies organisation (outside of this project, for test, to be moved)
+
+externalDocs:
+  description: We might add the javadoc here. WIP
+  url: http://ignazio-castrogiovanni.com/fermi/javadoc
+
+definitions:
+  GeneralError:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+
+  NotFoundError:
+    required:
+      - message
+      - hint
+    properties:
+      message:
+        type: string
+      hint:
+        type: string
+
+  Model:
+    properties:
+      name:
+        type: string
+        description: string
+      type:
+        type: string
+        description: string
+        enum:
+          - linear_regression
+          - logistic_regression
+  Organisation:
+    properties:
+      name:
+        type: string
+        description: string
+      type:
+        type: string
+        description: string
+
+paths:
+  /model/{id}: # error here see https://editor.swagger.io/
+    get:
+      summary: it gives information on the specific model
+      description: Returns the model package identified by {id}
+      tags:
+        - model
+      externalDocs:
+        description: link to my homepage where I describe the supported models.
+        url: http://ignazio-castrogiovanni.com/fermi/models
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: get the specific model
+          schema:
+            $ref: '#/definitions/Model'
+
+  /organisation/{id}: # error here see https://editor.swagger.io/
+      get:
+        summary: it gives information on the specific organisation
+        description: Returns the organisation package identified by {id}
+        tags:
+          - organisation
+        responses:
+          "200":
+            description: get the specific model
+            schema:
+              $ref: '#/definitions/Organisation'

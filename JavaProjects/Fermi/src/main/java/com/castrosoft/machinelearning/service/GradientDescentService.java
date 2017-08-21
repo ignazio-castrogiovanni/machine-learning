@@ -30,7 +30,9 @@ public class GradientDescentService {
                                                             maximumNumbersOfIterations);
 
         if (thetas != null) {
-            return new GradientDescentOutputVO(thetas[0], thetas[1]);
+            double roundedTheta1 = Math.round(thetas[0] * 100.00) / 100.00;
+            double roundedTheta2 = Math.round(thetas[1] * 100.00) / 100.00;
+            return new GradientDescentOutputVO(roundedTheta1, roundedTheta2);
         }
         return null;
     }
