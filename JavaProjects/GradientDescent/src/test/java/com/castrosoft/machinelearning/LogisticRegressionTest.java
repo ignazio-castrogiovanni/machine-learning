@@ -1,7 +1,11 @@
 package com.castrosoft.machinelearning;
 
+import com.castrosoft.machinelearning.utils.FileToMatrix;
 import org.jblas.DoubleMatrix;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -22,5 +26,25 @@ public class LogisticRegressionTest {
         DoubleMatrix result = LogisticRegression.sigmoid(vectorProduct);
 
         assertEquals(0.775, result.data[0], 0.002);
+    }
+
+    @Test
+    public void regularisedLogisticRegression()
+        throws IOException {
+        InputStream featuresMatrixInputStream = ClassLoader.class.getResourceAsStream("/features.csv");
+        DoubleMatrix featuresMatrix = FileToMatrix.readDoubleMatrixFromCSV(featuresMatrixInputStream);
+
+        InputStream yInputStream = ClassLoader.class.getResourceAsStream("/y.csv");
+        DoubleMatrix yMatrix = FileToMatrix.readDoubleMatrixFromCSV(yInputStream);
+
+        DoubleMatrix X = LogisticRegression.sigmoid(featuresMatrix);
+
+        DoubleMatrix initial_theta = new DoubleMatrix(X.length);
+
+        DoubleMatrix hypothesis = LogisticRegression.computeHypothesisFunction(X, initial_theta);
+
+        DoubleMatrix temp = LogisticRegression.temporaryArrayToSum(yMatrix, hypothesis);
+
+        System.out.println(hypothesis);
     }
 }
