@@ -29,22 +29,20 @@ public class LogisticRegressionTest {
     }
 
     @Test
-    public void regularisedLogisticRegression()
+    public void logisticRegression( )
         throws IOException {
         InputStream featuresMatrixInputStream = ClassLoader.class.getResourceAsStream("/features.csv");
-        DoubleMatrix featuresMatrix = FileToMatrix.readDoubleMatrixFromCSV(featuresMatrixInputStream);
+        DoubleMatrix X = FileToMatrix.readDoubleMatrixFromCSV(featuresMatrixInputStream);
 
         InputStream yInputStream = ClassLoader.class.getResourceAsStream("/y.csv");
         DoubleMatrix yMatrix = FileToMatrix.readDoubleMatrixFromCSV(yInputStream);
 
-        DoubleMatrix X = LogisticRegression.sigmoid(featuresMatrix);
-
-        DoubleMatrix initial_theta = new DoubleMatrix(X.length);
+        DoubleMatrix initial_theta = new DoubleMatrix(X.columns);
 
         DoubleMatrix hypothesis = LogisticRegression.computeHypothesisFunction(X, initial_theta);
 
-        DoubleMatrix temp = LogisticRegression.temporaryArrayToSum(yMatrix, hypothesis);
+        double costFunction = LogisticRegression.costFunction(yMatrix, hypothesis);
 
-        System.out.println(hypothesis);
+        assertEquals(0.693147, costFunction, 0.000001);
     }
 }

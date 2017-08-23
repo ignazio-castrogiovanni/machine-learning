@@ -16,23 +16,29 @@ public class LogisticRegression {
     }
 
     public static DoubleMatrix computeHypothesisFunction(DoubleMatrix X, DoubleMatrix theta) {
-        return sigmoid(X.mul(theta));
+        DoubleMatrix matrix = X.mmul(theta);
+        return sigmoid(matrix);
     }
 
-    public static DoubleMatrix temporaryArrayToSum(DoubleMatrix y, DoubleMatrix hypothesis) {
-        DoubleMatrix logHypothesis = MatrixFunctions.logi(hypothesis);
+    public static double costFunction(DoubleMatrix y, DoubleMatrix hypothesis) {
+        DoubleMatrix tempMatrix = new DoubleMatrix();
+        tempMatrix.copy(hypothesis);
+        DoubleMatrix logHypothesis = MatrixFunctions.logi(tempMatrix);
+
         DoubleMatrix ones = new DoubleMatrix(hypothesis.length);
         ones.fill(1.0);
 
-        DoubleMatrix logOneMinusHypothesis = MatrixFunctions.logi(ones.sub(hypothesis));
+        tempMatrix = new DoubleMatrix();
+        tempMatrix.copy(hypothesis);
+        DoubleMatrix logOneMinusHypothesis = MatrixFunctions.logi(ones.sub(tempMatrix));
 
         ones.fill(1.0);
 
-        // TODO: fix this
         DoubleMatrix result1 = y.neg().muli(logHypothesis);
         DoubleMatrix result2 = (ones.sub(y)).muli(logOneMinusHypothesis);
 
-        return result1.sub(result2);
-        //arrayToSum = (-y .* log(hypothesis) - (1 - y) .* log(1 - hypothesis));
+        DoubleMatrix temporaryResult = result1.sub(result2);
+
+        return temporaryResult.sum() * (1.0 / y.length);
     }
 }
