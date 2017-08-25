@@ -29,7 +29,7 @@ public class LogisticRegressionTest {
     }
 
     @Test
-    public void logisticRegression( )
+    public void logisticRegressionCostFunction( )
         throws IOException {
         InputStream featuresMatrixInputStream = ClassLoader.class.getResourceAsStream("/features.csv");
         DoubleMatrix X = FileToMatrix.readDoubleMatrixFromCSV(featuresMatrixInputStream);
@@ -41,8 +41,31 @@ public class LogisticRegressionTest {
 
         DoubleMatrix hypothesis = LogisticRegression.computeHypothesisFunction(X, initial_theta);
 
-        double costFunction = LogisticRegression.costFunction(yMatrix, hypothesis);
+        double costFunction = LogisticRegression.computeCost(yMatrix, hypothesis);
 
         assertEquals(0.693147, costFunction, 0.000001);
+    }
+
+    @Test
+    public void logisticRegressionGradient( )
+        throws IOException {
+        InputStream featuresMatrixInputStream = ClassLoader.class.getResourceAsStream("/features2.csv");
+        DoubleMatrix X = FileToMatrix.readDoubleMatrixFromCSV(featuresMatrixInputStream);
+
+        InputStream yInputStream = ClassLoader.class.getResourceAsStream("/y.csv");
+        DoubleMatrix yMatrix = FileToMatrix.readDoubleMatrixFromCSV(yInputStream);
+
+        DoubleMatrix initial_theta = new DoubleMatrix(X.columns);
+
+        DoubleMatrix hypothesis = LogisticRegression.computeHypothesisFunction(X, initial_theta);
+
+        DoubleMatrix gradient = LogisticRegression.computeGradient(X, yMatrix, hypothesis);
+
+        // Testing first 5 values
+        assertEquals(0.0084745, gradient.get(0),  0.000001);
+        assertEquals(0.0187880, gradient.get(1), 0.000001);
+        assertEquals(0.000077771186, gradient.get(2),  0.000001);
+        assertEquals(0.0503446,gradient.get(3),  0.000001);
+        assertEquals(0.0115013, gradient.get(4),  0.000001);
     }
 }

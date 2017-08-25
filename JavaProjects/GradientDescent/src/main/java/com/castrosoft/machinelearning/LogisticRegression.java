@@ -16,11 +16,13 @@ public class LogisticRegression {
     }
 
     public static DoubleMatrix computeHypothesisFunction(DoubleMatrix X, DoubleMatrix theta) {
-        DoubleMatrix matrix = X.mmul(theta);
+        DoubleMatrix tempMatrix = new DoubleMatrix();
+        tempMatrix.copy(X);
+        DoubleMatrix matrix = tempMatrix.mmul(theta);
         return sigmoid(matrix);
     }
 
-    public static double costFunction(DoubleMatrix y, DoubleMatrix hypothesis) {
+    public static double computeCost(DoubleMatrix y, DoubleMatrix hypothesis) {
         DoubleMatrix tempMatrix = new DoubleMatrix();
         tempMatrix.copy(hypothesis);
         DoubleMatrix logHypothesis = MatrixFunctions.logi(tempMatrix);
@@ -39,6 +41,15 @@ public class LogisticRegression {
 
         DoubleMatrix temporaryResult = result1.sub(result2);
 
-        return temporaryResult.sum() * (1.0 / y.length);
+        int m = y.length;
+        return temporaryResult.sum() * (1.0 / m);
+    }
+
+    public static DoubleMatrix computeGradient(DoubleMatrix X, DoubleMatrix Y, DoubleMatrix hypothesis) {
+        int m = Y.length;
+        DoubleMatrix intermediate1 = hypothesis.sub(Y);
+        DoubleMatrix intermediate2 = X.transpose().mmul(intermediate1);
+
+        return intermediate2.mmuli((1.0/m));
     }
 }
