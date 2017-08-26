@@ -1,9 +1,9 @@
-package com.castrosoft.machinelearning;
+package com.castrosoft.machinelearning.calculator;
 
 import org.jblas.DoubleMatrix;
 import org.jblas.MatrixFunctions;
 
-public class LogisticRegression {
+public class LogisticRegressionCalculator {
     public static DoubleMatrix sigmoid(DoubleMatrix matrix) {
         DoubleMatrix intermediateMatrix = matrix.copy(matrix);
         intermediateMatrix.muli(-1);

@@ -1,5 +1,6 @@
 package com.castrosoft.machinelearning;
 
+import com.castrosoft.machinelearning.calculator.LogisticRegressionCalculator;
 import com.castrosoft.machinelearning.utils.FileToMatrix;
 import org.jblas.DoubleMatrix;
 import org.junit.Test;
@@ -9,11 +10,11 @@ import java.io.InputStream;
 
 import static junit.framework.Assert.assertEquals;
 
-public class LogisticRegressionTest {
+public class LogisticRegressionCalculatorTest {
     @Test
     public void sigmoidOnZero() {
         DoubleMatrix vector = new DoubleMatrix(new double[] {0});
-        DoubleMatrix result = LogisticRegression.sigmoid(vector);
+        DoubleMatrix result = LogisticRegressionCalculator.sigmoid(vector);
 
         assertEquals(0.5, result.data[0]);
     }
@@ -23,7 +24,7 @@ public class LogisticRegressionTest {
         DoubleMatrix vector = new DoubleMatrix(new double[] {1, 45, 85}).transpose();
         DoubleMatrix theta = new DoubleMatrix(new double[] {-25.161272, 0.206233, 0.201470});
         DoubleMatrix vectorProduct = vector.mmul(theta);
-        DoubleMatrix result = LogisticRegression.sigmoid(vectorProduct);
+        DoubleMatrix result = LogisticRegressionCalculator.sigmoid(vectorProduct);
 
         assertEquals(0.775, result.data[0], 0.002);
     }
@@ -39,9 +40,9 @@ public class LogisticRegressionTest {
 
         DoubleMatrix initial_theta = new DoubleMatrix(X.columns);
 
-        DoubleMatrix hypothesis = LogisticRegression.computeHypothesisFunction(X, initial_theta);
+        DoubleMatrix hypothesis = LogisticRegressionCalculator.computeHypothesisFunction(X, initial_theta);
 
-        double costFunction = LogisticRegression.computeCost(yMatrix, hypothesis);
+        double costFunction = LogisticRegressionCalculator.computeCost(yMatrix, hypothesis);
 
         assertEquals(0.693147, costFunction, 0.000001);
     }
@@ -57,9 +58,9 @@ public class LogisticRegressionTest {
 
         DoubleMatrix initial_theta = new DoubleMatrix(X.columns);
 
-        DoubleMatrix hypothesis = LogisticRegression.computeHypothesisFunction(X, initial_theta);
+        DoubleMatrix hypothesis = LogisticRegressionCalculator.computeHypothesisFunction(X, initial_theta);
 
-        DoubleMatrix gradient = LogisticRegression.computeGradient(X, yMatrix, hypothesis);
+        DoubleMatrix gradient = LogisticRegressionCalculator.computeGradient(X, yMatrix, hypothesis);
 
         // Testing first 5 values
         assertEquals(0.0084745, gradient.get(0),  0.000001);
